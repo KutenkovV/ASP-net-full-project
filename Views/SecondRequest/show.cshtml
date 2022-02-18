@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Accounting_of_Goods_ver_2.Models.outputDok_second_Result>
+
+@{
+    ViewBag.Title = "Второй запрос";
+
+    Pager pager = new Pager();
+    int pageNum = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNum = pager.CurrentPage;
+    }
+}
+
+<div class="text-center">
+    <h2>Второй запрос</h2>
+    <p>
+        Для заданной торговой точки выдать список запрашиваемых товаров
+        с указанием их количества на каждом складе, упорядоченный по
+        наименованиям товаром и по номерам складов.
+    </p>
+</div>
+
+<table class="table table-hover">
+    <caption>Результат выполнения запроса</caption>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Retail_outlets_Addressr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name_of_the_company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product_quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Warehouse_Number)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Retail_outlets_Addressr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_of_the_company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warehouse_Number)
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?pg=1">Первая</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?pg=@(pager.CurrentPage - 1)">Назад</a>
+                </li>
+            }
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="?pg=@pge"> @pge </a>
+                </li>
+            }
+
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?pg=@(pager.CurrentPage + 1)">Далее</a>
+                </li>
+                <li>
+                    <a class="page-link" href="?pg=@(pager.TotalPages)">Последняя</a>
+                </li>
+            }
+        </ul>
+    }
+</div>

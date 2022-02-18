@@ -1,0 +1,43 @@
+﻿@model Accounting_of_Goods_ver_2.Models.Product
+
+@{
+    ViewBag.Title = "Детали";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <h4>Товары</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name_of_the_company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_of_the_company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Units_of_measurement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Units_of_measurement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost_of_change)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost_of_change)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Edit", new { id = Model.Registration_number })">Редактировать</a>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Вернуться к таблице</a>
+</p>

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Accounting_of_Goods_ver_2.Models.Product>
+
+@{
+    ViewBag.Title = "Товары";
+
+    Pager pager = new Pager();
+    int pageNum = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNum = pager.CurrentPage;
+    }
+}
+
+<div class="text-center">
+    <h2>Товары</h2>
+    <p>
+        <a class="btn btn-success" href="@Url.Action("Create")">Создать</a>
+    </p>
+</div>
+
+<table class="table table-hover">
+    <caption>Список товаров</caption>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Registration_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name_of_the_company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Units_of_measurement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost_of_change)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Registration_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_of_the_company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Units_of_measurement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost_of_change)
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.Registration_number })">Редактировать</a>
+                <a class="btn btn-primary" href="@Url.Action("Details", new { id = item.Registration_number })">Детали</a>
+                <a class="btn btn-primary" href="@Url.Action("Delete", new { id = item.Registration_number })">Удалить</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?pg=1">Первая</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?pg=@(pager.CurrentPage - 1)">Назад</a>
+                </li>
+            }
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="?pg=@pge"> @pge </a>
+                </li>
+            }
+
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?pg=@(pager.CurrentPage + 1)">Далее</a>
+                </li>
+                <li>
+                    <a class="page-link" href="?pg=@(pager.TotalPages)">Последняя</a>
+                </li>
+            }
+        </ul>
+    }
+</div>

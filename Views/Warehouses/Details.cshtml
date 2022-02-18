@@ -1,0 +1,26 @@
+﻿@model Accounting_of_Goods_ver_2.Models.Warehouse
+
+@{
+    ViewBag.Title = "Детали";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <h4>Склады</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.full_name_of_the_torekeeper)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.full_name_of_the_torekeeper)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Edit", new { id = Model.Number })">Редактировать</a>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Вернуться к таблице</a>
+</p>

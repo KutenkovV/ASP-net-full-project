@@ -1,0 +1,50 @@
+﻿@model Accounting_of_Goods_ver_2.Models.Entrance
+
+@{
+    ViewBag.Title = "Детали";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <h4>Первое поступление</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.delivery_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.delivery_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.name_of_the_company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.name_of_the_company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Warehouse.full_name_of_the_torekeeper)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Warehouse.full_name_of_the_torekeeper)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Edit", new { id = Model.ID })">Редактировать</a>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Вернуться к таблице</a>
+</p>

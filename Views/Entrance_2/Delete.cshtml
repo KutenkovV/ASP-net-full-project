@@ -1,0 +1,52 @@
+﻿@model Accounting_of_Goods_ver_2.Models.Entrance_2
+
+@{
+    ViewBag.Title = "Удалить";
+}
+
+<h2>Удалить</h2>
+
+<h3>Вы действительно хотите удалить объект?</h3>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <h4>Второе поступление</h4>
+        <hr />
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger text-danger" })
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Product_quantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Product_quantity)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Product.name_of_the_company)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Product.name_of_the_company)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Retail_outlets.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Retail_outlets.name)
+            </dd>
+
+        </dl>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-outline-secondary" />
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Вернуться к таблице</a>
+        </div>
+    </div>
+}

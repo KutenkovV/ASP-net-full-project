@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Models" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Entrance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Products_Registration_number" Type="int" Nullable="false" />
+          <Property Name="Warehouse_Number" Type="int" Nullable="false" />
+          <Property Name="Product_quantity" Type="int" Nullable="false" />
+          <Property Name="delivery_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entrance_2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Products_Registration_number" Type="int" Nullable="false" />
+          <Property Name="Retail_outlets_Addressr" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Product_quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Registration_number" />
+          </Key>
+          <Property Name="Registration_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_of_the_company" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Units_of_measurement" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cost_of_change" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Retail_outlets">
+          <Key>
+            <PropertyRef Name="Address" />
+          </Key>
+          <Property Name="Address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="full_name_of_the_torekeeper" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Entrance___Produ__6A30C649">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Entrance_2" Type="Self.Entrance_2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Registration_number" />
+            </Principal>
+            <Dependent Role="Entrance_2">
+              <PropertyRef Name="Products_Registration_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrance___Retai__6B24EA82">
+          <End Role="Retail_outlets" Type="Self.Retail_outlets" Multiplicity="1" />
+          <End Role="Entrance_2" Type="Self.Entrance_2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retail_outlets">
+              <PropertyRef Name="Address" />
+            </Principal>
+            <Dependent Role="Entrance_2">
+              <PropertyRef Name="Retail_outlets_Addressr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrance__Produc__66603565">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Entrance" Type="Self.Entrance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Registration_number" />
+            </Principal>
+            <Dependent Role="Entrance">
+              <PropertyRef Name="Products_Registration_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrance__Wareho__6754599E">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Entrance" Type="Self.Entrance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="Entrance">
+              <PropertyRef Name="Warehouse_Number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="addEntrance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Products_Registration_number" Type="int" Mode="In" />
+          <Parameter Name="Warehouse_Number" Type="int" Mode="In" />
+          <Parameter Name="Product_quantity" Type="int" Mode="In" />
+          <Parameter Name="delivery_date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="addEntrance2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Products_Registration_number" Type="int" Mode="In" />
+          <Parameter Name="Retail_outlets_Addressr" Type="varchar" Mode="In" />
+          <Parameter Name="Product_quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NameProduct" Type="varchar" Mode="In" />
+          <Parameter Name="SortProduct" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name_of_the_company" Type="varchar" Mode="In" />
+          <Parameter Name="Units_of_measurement" Type="varchar" Mode="In" />
+          <Parameter Name="Cost_of_change" Type="int" Mode="In" />
+        </Function>
+        <Function Name="addRetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AddShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShopName" Type="varchar" Mode="In" />
+          <Parameter Name="SquearShop" Type="int" Mode="In" />
+          <Parameter Name="ShopAdresss" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addWarehouse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Number" Type="int" Mode="In" />
+          <Parameter Name="full_name_of_the_torekeeper" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delEntrance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delEntrance2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProduct" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShopNumber" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Registration_number" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delRetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delWarehouse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Number" Type="int" Mode="In" />
+        </Function>
+        <Function Name="outputDok_first" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="outputDok_second" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="address" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProduct" Type="int" Mode="In" />
+          <Parameter Name="NameProduct" Type="varchar" Mode="In" />
+          <Parameter Name="SortProduct" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShopNumber" Type="int" Mode="In" />
+          <Parameter Name="ShopName" Type="varchar" Mode="In" />
+          <Parameter Name="SquearShop" Type="int" Mode="In" />
+          <Parameter Name="ShopAdresss" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdEntrance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Product_quantity" Type="int" Mode="In" />
+          <Parameter Name="delivery_date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="UpdEntrance2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Product_quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Registration_number" Type="int" Mode="In" />
+          <Parameter Name="name_of_the_company" Type="varchar" Mode="In" />
+          <Parameter Name="Units_of_measurement" Type="varchar" Mode="In" />
+          <Parameter Name="Cost_of_change" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdRetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdWarehouse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Number" Type="int" Mode="In" />
+          <Parameter Name="full_name_of_the_torekeeper" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище ModelsContainer">
+          <EntitySet Name="Entrance" EntityType="Self.Entrance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entrance_2" EntityType="Self.Entrance_2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retail_outlets" EntityType="Self.Retail_outlets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Entrance___Produ__6A30C649" Association="Self.FK__Entrance___Produ__6A30C649">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Entrance_2" EntitySet="Entrance_2" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrance___Retai__6B24EA82" Association="Self.FK__Entrance___Retai__6B24EA82">
+            <End Role="Retail_outlets" EntitySet="Retail_outlets" />
+            <End Role="Entrance_2" EntitySet="Entrance_2" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrance__Produc__66603565" Association="Self.FK__Entrance__Produc__66603565">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Entrance" EntitySet="Entrance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrance__Wareho__6754599E" Association="Self.FK__Entrance__Wareho__6754599E">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Entrance" EntitySet="Entrance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Entrance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Products_Registration_number" Type="Int32" Nullable="false" />
+          <Property Name="Warehouse_Number" Type="Int32" Nullable="false" />
+          <Property Name="Product_quantity" Type="Int32" Nullable="false" />
+          <Property Name="delivery_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Entrance__Produc__66603565" FromRole="Entrance" ToRole="Products" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.FK__Entrance__Wareho__6754599E" FromRole="Entrance" ToRole="Warehouse" />
+        </EntityType>
+        <EntityType Name="Entrance_2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Products_Registration_number" Type="Int32" Nullable="false" />
+          <Property Name="Retail_outlets_Addressr" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Entrance___Produ__6A30C649" FromRole="Entrance_2" ToRole="Products" />
+          <NavigationProperty Name="Retail_outlets" Relationship="Self.FK__Entrance___Retai__6B24EA82" FromRole="Entrance_2" ToRole="Retail_outlets" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Registration_number" />
+          </Key>
+          <Property Name="Registration_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_of_the_company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Units_of_measurement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cost_of_change" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entrances" Relationship="Self.FK__Entrance__Produc__66603565" FromRole="Products" ToRole="Entrance" />
+          <NavigationProperty Name="Entrance_2" Relationship="Self.FK__Entrance___Produ__6A30C649" FromRole="Products" ToRole="Entrance_2" />
+        </EntityType>
+        <EntityType Name="Retail_outlets">
+          <Key>
+            <PropertyRef Name="Address" />
+          </Key>
+          <Property Name="Address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Entrance_2" Relationship="Self.FK__Entrance___Retai__6B24EA82" FromRole="Retail_outlets" ToRole="Entrance_2" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="full_name_of_the_torekeeper" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Entrances" Relationship="Self.FK__Entrance__Wareho__6754599E" FromRole="Warehouse" ToRole="Entrance" />
+        </EntityType>
+        <Association Name="FK__Entrance__Produc__66603565">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Entrance" Type="Self.Entrance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Registration_number" />
+            </Principal>
+            <Dependent Role="Entrance">
+              <PropertyRef Name="Products_Registration_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrance__Wareho__6754599E">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Entrance" Type="Self.Entrance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="Entrance">
+              <PropertyRef Name="Warehouse_Number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrance___Produ__6A30C649">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Entrance_2" Type="Self.Entrance_2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Registration_number" />
+            </Principal>
+            <Dependent Role="Entrance_2">
+              <PropertyRef Name="Products_Registration_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrance___Retai__6B24EA82">
+          <End Role="Retail_outlets" Type="Self.Retail_outlets" Multiplicity="1" />
+          <End Role="Entrance_2" Type="Self.Entrance_2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retail_outlets">
+              <PropertyRef Name="Address" />
+            </Principal>
+            <Dependent Role="Entrance_2">
+              <PropertyRef Name="Retail_outlets_Addressr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProductRelationDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Entrances" EntityType="Self.Entrance" />
+          <EntitySet Name="Entrance_2" EntityType="Self.Entrance_2" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Retail_outlets" EntityType="Self.Retail_outlets" />
+          <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+          <AssociationSet Name="FK__Entrance__Produc__66603565" Association="Self.FK__Entrance__Produc__66603565">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Entrance" EntitySet="Entrances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrance__Wareho__6754599E" Association="Self.FK__Entrance__Wareho__6754599E">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Entrance" EntitySet="Entrances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrance___Produ__6A30C649" Association="Self.FK__Entrance___Produ__6A30C649">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Entrance_2" EntitySet="Entrance_2" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrance___Retai__6B24EA82" Association="Self.FK__Entrance___Retai__6B24EA82">
+            <End Role="Retail_outlets" EntitySet="Retail_outlets" />
+            <End Role="Entrance_2" EntitySet="Entrance_2" />
+          </AssociationSet>
+          <FunctionImport Name="outputDok_first" ReturnType="Collection(Models.outputDok_first_Result)" />
+          <FunctionImport Name="outputDok_second" ReturnType="Collection(Models.outputDok_second_Result)">
+          <Parameter Name="address" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addEntrance">
+            <Parameter Name="Products_Registration_number" Mode="In" Type="Int32" />
+            <Parameter Name="Warehouse_Number" Mode="In" Type="Int32" />
+            <Parameter Name="Product_quantity" Mode="In" Type="Int32" />
+            <Parameter Name="delivery_date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="addEntrance2">
+            <Parameter Name="Products_Registration_number" Mode="In" Type="Int32" />
+            <Parameter Name="Retail_outlets_Addressr" Mode="In" Type="String" />
+            <Parameter Name="Product_quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddProduct">
+            <Parameter Name="NameProduct" Mode="In" Type="String" />
+            <Parameter Name="SortProduct" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addProducts">
+            <Parameter Name="name_of_the_company" Mode="In" Type="String" />
+            <Parameter Name="Units_of_measurement" Mode="In" Type="String" />
+            <Parameter Name="Cost_of_change" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="addRetail">
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddShop">
+            <Parameter Name="ShopName" Mode="In" Type="String" />
+            <Parameter Name="SquearShop" Mode="In" Type="Int32" />
+            <Parameter Name="ShopAdresss" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addWarehouse">
+            <Parameter Name="Number" Mode="In" Type="Int32" />
+            <Parameter Name="full_name_of_the_torekeeper" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delEntrance">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delEntrance2">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProduct">
+            <Parameter Name="idProduct" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteShop">
+            <Parameter Name="ShopNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delProducts">
+            <Parameter Name="Registration_number" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delRetail">
+            <Parameter Name="Address" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delWarehouse">
+            <Parameter Name="Number" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProduct">
+            <Parameter Name="idProduct" Mode="In" Type="Int32" />
+            <Parameter Name="NameProduct" Mode="In" Type="String" />
+            <Parameter Name="SortProduct" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateShop">
+            <Parameter Name="ShopNumber" Mode="In" Type="Int32" />
+            <Parameter Name="ShopName" Mode="In" Type="String" />
+            <Parameter Name="SquearShop" Mode="In" Type="Int32" />
+            <Parameter Name="ShopAdresss" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdEntrance">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Product_quantity" Mode="In" Type="Int32" />
+            <Parameter Name="delivery_date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UpdEntrance2">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Product_quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdProducts">
+            <Parameter Name="Registration_number" Mode="In" Type="Int32" />
+            <Parameter Name="name_of_the_company" Mode="In" Type="String" />
+            <Parameter Name="Units_of_measurement" Mode="In" Type="String" />
+            <Parameter Name="Cost_of_change" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdRetail">
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdWarehouse">
+            <Parameter Name="Number" Mode="In" Type="Int32" />
+            <Parameter Name="full_name_of_the_torekeeper" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="outputDok_first_Result">
+          <Property Type="Int32" Name="Registration_number" Nullable="false" />
+          <Property Type="String" Name="name_of_the_company" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="full_cost" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="outputDok_second_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Retail_outlets_Addressr" Nullable="false" MaxLength="45" />
+          <Property Type="String" Name="name_of_the_company" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Product_quantity" Nullable="false" />
+          <Property Type="Int32" Name="Warehouse_Number" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelsContainer" CdmEntityContainer="ProductRelationDBContext">
+          <EntitySetMapping Name="Entrances">
+            <EntityTypeMapping TypeName="Models.Entrance">
+              <MappingFragment StoreEntitySet="Entrance">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Products_Registration_number" ColumnName="Products_Registration_number" />
+                <ScalarProperty Name="Warehouse_Number" ColumnName="Warehouse_Number" />
+                <ScalarProperty Name="Product_quantity" ColumnName="Product_quantity" />
+                <ScalarProperty Name="delivery_date" ColumnName="delivery_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entrance_2">
+            <EntityTypeMapping TypeName="Models.Entrance_2">
+              <MappingFragment StoreEntitySet="Entrance_2">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Products_Registration_number" ColumnName="Products_Registration_number" />
+                <ScalarProperty Name="Retail_outlets_Addressr" ColumnName="Retail_outlets_Addressr" />
+                <ScalarProperty Name="Product_quantity" ColumnName="Product_quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="Models.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Registration_number" ColumnName="Registration_number" />
+                <ScalarProperty Name="name_of_the_company" ColumnName="name_of_the_company" />
+                <ScalarProperty Name="Units_of_measurement" ColumnName="Units_of_measurement" />
+                <ScalarProperty Name="Cost_of_change" ColumnName="Cost_of_change" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Retail_outlets">
+            <EntityTypeMapping TypeName="Models.Retail_outlets">
+              <MappingFragment StoreEntitySet="Retail_outlets">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="Models.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="full_name_of_the_torekeeper" ColumnName="full_name_of_the_torekeeper" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="outputDok_first" FunctionName="Хранилище Models.outputDok_first">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.outputDok_first_Result">
+                <ScalarProperty Name="Registration_number" ColumnName="Registration_number" />
+                <ScalarProperty Name="name_of_the_company" ColumnName="name_of_the_company" />
+                <ScalarProperty Name="full_cost" ColumnName="full_cost" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="outputDok_second" FunctionName="Хранилище Models.outputDok_second">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.outputDok_second_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Retail_outlets_Addressr" ColumnName="Retail_outlets_Addressr" />
+                <ScalarProperty Name="name_of_the_company" ColumnName="name_of_the_company" />
+                <ScalarProperty Name="Product_quantity" ColumnName="Product_quantity" />
+                <ScalarProperty Name="Warehouse_Number" ColumnName="Warehouse_Number" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="addEntrance" FunctionName="Хранилище Models.addEntrance" />
+          <FunctionImportMapping FunctionImportName="addEntrance2" FunctionName="Хранилище Models.addEntrance2" />
+          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="Хранилище Models.AddProduct" />
+          <FunctionImportMapping FunctionImportName="addProducts" FunctionName="Хранилище Models.addProducts" />
+          <FunctionImportMapping FunctionImportName="addRetail" FunctionName="Хранилище Models.addRetail" />
+          <FunctionImportMapping FunctionImportName="AddShop" FunctionName="Хранилище Models.AddShop" />
+          <FunctionImportMapping FunctionImportName="addWarehouse" FunctionName="Хранилище Models.addWarehouse" />
+          <FunctionImportMapping FunctionImportName="delEntrance" FunctionName="Хранилище Models.delEntrance" />
+          <FunctionImportMapping FunctionImportName="delEntrance2" FunctionName="Хранилище Models.delEntrance2" />
+          <FunctionImportMapping FunctionImportName="DeleteProduct" FunctionName="Хранилище Models.DeleteProduct" />
+          <FunctionImportMapping FunctionImportName="DeleteShop" FunctionName="Хранилище Models.DeleteShop" />
+          <FunctionImportMapping FunctionImportName="delProducts" FunctionName="Хранилище Models.delProducts" />
+          <FunctionImportMapping FunctionImportName="delRetail" FunctionName="Хранилище Models.delRetail" />
+          <FunctionImportMapping FunctionImportName="delWarehouse" FunctionName="Хранилище Models.delWarehouse" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="Хранилище Models.UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="UpdateShop" FunctionName="Хранилище Models.UpdateShop" />
+          <FunctionImportMapping FunctionImportName="UpdEntrance" FunctionName="Хранилище Models.UpdEntrance" />
+          <FunctionImportMapping FunctionImportName="UpdEntrance2" FunctionName="Хранилище Models.UpdEntrance2" />
+          <FunctionImportMapping FunctionImportName="UpdProducts" FunctionName="Хранилище Models.UpdProducts" />
+          <FunctionImportMapping FunctionImportName="UpdRetail" FunctionName="Хранилище Models.UpdRetail" />
+          <FunctionImportMapping FunctionImportName="UpdWarehouse" FunctionName="Хранилище Models.UpdWarehouse" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
